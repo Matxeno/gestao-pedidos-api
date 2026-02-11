@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestão de Pedidos</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1>Gestão de Pedidos</h1>
+      <p class="muted">Frontend</p>
+    </div>
+  </header>
+
+  <main class="container grid">
+    <!-- PRODUTOS -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Produtos</h2>
+        <button id="btnRecarregar" class="btn btn-light">Recarregar</button>
+      </div>
+
+      <div class="filters">
+        <div class="field">
+          <label for="busca">Busca</label>
+          <input id="busca" type="text" placeholder="Nome do produto..." />
+        </div>
+
+        <div class="field">
+          <label for="categoria">Categoria</label>
+          <input id="categoria" type="text" placeholder="Ex: Bebidas" />
+        </div>
+
+        <div class="field checkbox">
+          <input id="somenteAtivos" type="checkbox" />
+          <label for="somenteAtivos">Somente ativos</label>
+        </div>
+      </div>
+
+      <div id="produtosStatus" class="muted"></div>
+      <div id="produtosLista" class="list"></div>
+    </section>
+
+    <!-- CARRINHO -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Carrinho</h2>
+        <button id="btnLimparCarrinho" class="btn btn-danger">Limpar</button>
+      </div>
+
+      <div class="field">
+        <label for="clienteId">ClienteId (obrigatório)</label>
+        <input id="clienteId" type="number" min="1" placeholder="Ex: 1" />
+        <small class="muted">Obs: por enquanto usamos ClienteId numérico.</small>
+      </div>
+
+      <div id="carrinhoVazio" class="muted">Seu carrinho está vazio.</div>
+      <div id="carrinhoLista" class="list"></div>
+
+      <div class="total">
+        <span>Total</span>
+        <strong id="carrinhoTotal">R$ 0,00</strong>
+      </div>
+
+      <button id="btnFinalizar" class="btn btn-primary">Finalizar Pedido</button>
+
+      <div id="pedidoCriado" class="success hidden"></div>
+      <div id="erroPedido" class="error hidden"></div>
+
+      <hr class="sep" />
+
+      <h3>Pagamento</h3>
+      <div class="pay">
+        <div class="field">
+          <label for="pedidoIdPagamento">Id do Pedido</label>
+          <input id="pedidoIdPagamento" type="number" min="1" placeholder="Ex: 1" />
+        </div>
+
+        <div class="field">
+          <label for="metodo">Método</label>
+          <select id="metodo">
+            <option value="PIX">PIX</option>
+            <option value="CARD">CARD</option>
+            <option value="BOLETO">BOLETO</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="valorCentavos">Valor (em centavos)</label>
+          <input id="valorCentavos" type="number" min="1" placeholder="Ex: 15000" />
+        </div>
+      </div>
+
+      <button id="btnPagar" class="btn btn-light">Registrar Pagamento</button>
+      <div id="pagamentoStatus" class="muted"></div>
+    </section>
+
+    <!-- PEDIDOS -->
+    <section class="card wide">
+      <div class="card-header">
+        <h2>Pedidos</h2>
+        <button id="btnCarregarPedidos" class="btn btn-light">Carregar últimos pedidos</button>
+      </div>
+
+      <div id="pedidosStatus" class="muted"></div>
+
+      <div class="two-col">
+        <div>
+          <h3>Lista</h3>
+          <div id="pedidosLista" class="list"></div>
+        </div>
+
+        <div>
+          <h3>Detalhe</h3>
+          <div id="pedidoDetalhe" class="detail muted">Clique em um pedido para ver detalhes.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container muted">
+      <small>Frontend simples para avaliação técnica.</small>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
