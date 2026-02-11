@@ -22,9 +22,15 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 var app = builder.Build();
 
-// Cria o banco automaticamente caso não exista
+// Cria o banco automaticamente
 using (var escopo = app.Services.CreateScope())
 {
     var contexto = escopo.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -38,5 +44,6 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gestão de Pedidos API v1");
 });
 
+app.UseCors("Frontend");
 app.MapControllers();
 app.Run();
