@@ -1,58 +1,89 @@
-Gestão de Pedidos API
+# Gestão de Pedidos — Avaliação Técnica
 
-Backend desenvolvido para a avaliação técnica Lynx SPA. A aplicação implementa uma mini API REST para gestão de pedidos, incluindo produtos, pedidos, itens e pagamentos, seguindo as regras de negócio propostas no enunciado.
+Mini aplicação de gestão de pedidos desenvolvida como solução para avaliação técnica.
 
-Tecnologias:
+O projeto é composto por:
 
-.NET 8
+- Backend REST em ASP.NET Core (.NET 8)
+- Banco SQLite
+- Frontend simples em HTML/CSS/JavaScript puro
 
-Entity Framework Core
+A aplicação permite listar produtos, criar pedidos, visualizar detalhes e registrar pagamentos.
 
-SQLite
+---
 
-Swagger
+## Funcionalidades
 
-Execução:
+### Backend
 
-Clonar o repositório
-git clone <URL_DO_REPOSITORIO>
-cd GestaoPedidos.Api
+- Listagem de produtos com filtros
+- Listagem resumida de pedidos
+- Detalhes do pedido com total calculado
+- Criação de pedidos com validações
+- Registro de pagamentos
+- Atualização automática de status do pedido
+- Validação de produtos ativos
+- Tratamento de erros com mensagens claras
 
-Restaurar dependências
-dotnet restore
+### Frontend
 
-Executar
+- Busca e filtro de produtos
+- Carrinho local em JavaScript
+- Totalizador automático
+- Finalização de pedido
+- Registro de pagamento
+- Lista de pedidos
+- Detalhes ao clicar
+- UI simples e responsiva
+
+---
+
+## Tecnologias
+
+- .NET 8
+- ASP.NET Core Web API
+- Entity Framework Core
+- SQLite
+- HTML / CSS / JavaScript
+
+---
+
+## Como executar
+
+### 1. Backend
+
+Dentro da pasta da API:
+
 dotnet run
 
-Swagger disponível em:
-http://localhost:xxxx/swagger
 
-(porta exibida no terminal)
+A API será iniciada e o Swagger ficará disponível em:
 
-Funcionalidades implementadas:
+http://localhost:PORT/swagger
 
-Listagem de produtos com filtros
+*(a porta aparece no terminal após o run)*
 
-Criação de pedidos com validação de itens
+---
 
-Listagem resumida de pedidos
+### 2. Frontend
 
-Detalhamento de pedido com total calculado
+Abra o arquivo:
+frontend/index.html
 
-Registro de pagamentos
 
-Atualização automática de status para PAID
+Recomendado usar a extensão **Live Server** do VS Code.
 
-Regras de negócio:
+---
 
-Total do pedido = quantidade × preço unitário
+## Observações
 
-Pedido só muda para PAID quando pagamentos ≥ total
+- O banco SQLite é criado automaticamente na primeira execução
+- Não é necessário instalar banco externo
+- O frontend consome a API local
 
-Produtos inativos não podem ser adicionados
+---
 
-Tratamento de erros com mensagens claras
+## Autor
 
-O banco SQLite é criado automaticamente na primeira execução.
+Mateus Xenofonte
 
-Backend entregue conforme requisitos mínimos obrigatórios da avaliação.

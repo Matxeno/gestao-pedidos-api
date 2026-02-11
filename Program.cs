@@ -1,4 +1,5 @@
 using GestaoPedidos.Api.Data;
+using GestaoPedidos.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -22,19 +23,42 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// CORS (para o frontend rodando em outra porta)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
-        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod());
 });
 
 var app = builder.Build();
 
-// Cria o banco automaticamente
+// Cria o banco automaticamente e popula dados iniciais (seed)
 using (var escopo = app.Services.CreateScope())
 {
     var contexto = escopo.ServiceProvider.GetRequiredService<AppDbContext>();
     contexto.Database.EnsureCreated();
+
+    // Seed inicial: cria produtos e um cliente de teste apenas se não existir nenhum produto
+    if (!contexto.Produtos.Any())
+    {
+        contexto.Produtos.AddRange(
+            new Produto { Nome = "Café", Categoria = "Bebidas", PrecoCentavos = 1200, Ativo = true },
+            new Produto { Nome = "Refrigerante", Categoria = "Bebidas", PrecoCentavos = 800, Ativo = true },
+            new Produto { Nome = "Hambúrguer", Categoria = "Comida", PrecoCentavos = 2500, Ativo = true },
+            new Produto { Nome = "Produto Inativo", Categoria = "Teste", PrecoCentavos = 1000, Ativo = false }
+        );
+
+        contexto.Clientes.Add(new Cliente
+        {
+            Nome = "Cliente Teste",
+            Email = "teste@email.com",
+            CriadoEm = DateTime.UtcNow
+        });
+
+        contexto.SaveChanges();
+    }
 }
 
 // Pipeline
@@ -45,5 +69,6 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseCors("Frontend");
+
 app.MapControllers();
 app.Run();
